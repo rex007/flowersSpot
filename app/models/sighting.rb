@@ -30,6 +30,7 @@ class Sighting < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true
 
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :user, presence: true
   validates :flower, presence: true
