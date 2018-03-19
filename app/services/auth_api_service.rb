@@ -14,11 +14,11 @@ class AuthApiService
   private
 
   def user
-    # valid or invalid ?
+    @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
   end
 
   def decoded_auth_token
-    # JsonWebToken
+    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
   end
 
   def http_auth_header
