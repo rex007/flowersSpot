@@ -22,6 +22,8 @@ Rails.application.routes.draw do
                            controller: 'sightings/images'
         resources :comments, only: [:create, :index, :destroy],
                             controller: 'sightings/comments'
+        resources :likes, only: [:create, :index, :destroy],
+                            controller: 'sightings/likes'
       end
 
       resources :flowers, only: [:index, :show] do
