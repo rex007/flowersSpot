@@ -14,6 +14,6 @@ class SightingsSerializer < ActiveModel::Serializer
 
   def comments_count
     # remove this when counter cashe for comments is made
-    0
+    object.comments.count
   end
 end
