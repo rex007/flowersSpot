@@ -26,6 +26,7 @@ class SightingSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :picture, :likes_count, :comments_count
 
   belongs_to :user, serializer: SightingsUserSerializer
+  has_many :comments  
 
   def picture
     object.picture.url(:medium)
@@ -38,6 +39,6 @@ class SightingSerializer < ActiveModel::Serializer
 
   def comments_count
     # remove this when counter cashe for comments is made
-    0
+    object.comments.count
   end
 end
