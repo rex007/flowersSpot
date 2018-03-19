@@ -43,4 +43,10 @@ class Sighting < ApplicationRecord
     default_url: '/images/:style/missing.png'
   validates_attachment_content_type :picture,
     content_type: /\Aimage\/.*\z/
+
+
+
+  def self.latest
+    order(created_at: :desc).limit(10)
+  end
 end
