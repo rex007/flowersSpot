@@ -48,6 +48,25 @@ RSpec.describe Api::V1::SightingsController, type: :controller do
       result = JSON.load(response.body)
       expect(result['sighting']['name']).to eq(sighting_params[:name])
     end
+
+    it 'should store question' do
+      user = create(:user)
+      flower = create(:flower)
+
+      sighting_params = {
+        flower_id: flower.id,
+        name: 'Apix',
+        description: 'Mijav',
+        latitude: 14.213131,
+        longitude: 15.12313
+      }
+
+      request.headers['Authorization'] = user.to_jwt
+      post :create, params: sighting_params
+      expect(response.status).to eq(200)
+      result = JSON.load(response.body)
+      expect(result['sighting']['question']).not_to be_empty      
+    end
   end
 
   describe 'update' do
