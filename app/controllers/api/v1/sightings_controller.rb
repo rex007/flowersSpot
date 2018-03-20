@@ -17,6 +17,9 @@ class Api::V1::SightingsController < Api::V1::BaseController
   def create
     @sighting = Sighting.new(sighting_params)
     @sighting.user_id = @current_user.id
+    question_api = QriusityApiService.new
+    question = question_api.call
+    @sighting.question = question if question != false
     if @sighting.save
       render json: @sighting, serializer: SightingSerializer
     else
