@@ -24,7 +24,9 @@
 #
 
 class Sighting < ApplicationRecord
+  include Statistical
   after_commit :add_question, on: :create
+  after_commit :add_statistic, on: :create
   belongs_to :user, counter_cache: true
   belongs_to :flower, counter_cache: true
 
@@ -57,6 +59,10 @@ class Sighting < ApplicationRecord
     question_api = QriusityApiService.new
     quest = question_api.call
     self.update_column(:question, quest)
+  end
+
+  def add_statistic
+    Statistical.create_statistic(self)
   end
 
 end
