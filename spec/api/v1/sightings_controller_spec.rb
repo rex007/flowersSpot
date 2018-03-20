@@ -67,6 +67,25 @@ RSpec.describe Api::V1::SightingsController, type: :controller do
       result = JSON.load(response.body)
       expect(result['sighting']['question']).not_to be_empty      
     end
+
+    it 'should create statistic when sighting is created' do 
+      stat_count = Statistic.count
+      user = create(:user)
+      flower = create(:flower)
+
+      sighting_params = {
+        flower_id: flower.id,
+        name: 'Apix',
+        description: 'Mijav',
+        latitude: 14.213131,
+        longitude: 15.12313
+      }
+
+      request.headers['Authorization'] = user.to_jwt
+      post :create, params: sighting_params
+      expect(response.status).to eq(200)
+      expect(Statistic.count).to eq(stat_count + 1)
+    end
   end
 
   describe 'update' do
