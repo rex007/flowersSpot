@@ -24,7 +24,7 @@
 #
 
 class SightingSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :picture, :likes_count, :comments_count
+  attributes :id, :name, :description, :picture, :question, :likes_count, :comments_count
 
   belongs_to :user, serializer: SightingsUserSerializer
   has_many :comments  
