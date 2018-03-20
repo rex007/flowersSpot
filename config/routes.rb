@@ -14,6 +14,8 @@ Rails.application.routes.draw do
         member do
           put :me, to: 'users#update'
           get :sightings, to: 'users/sightings#index'
+          get :comments, to: 'users/comments#index'
+          get :likes, to: 'users/likes#index'
         end
       end
 
