@@ -1,9 +1,6 @@
 require 'net/http'
 require 'json'
 
-
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-
 class QriusityApiService
 	def initialize(url = 'https://qriusity.com/v1/questions')
 		@url = url
@@ -18,13 +15,14 @@ class QriusityApiService
 	def get_question
 		uri = URI(@url)
 		begin
+			retries ||= 0
 			response = Net::HTTP.get(uri)
 			res = JSON.parse(response)
 			numbers_of_questions = res.count
 			randomNumber = rand(0..numbers_of_questions)
 			res[randomNumber]['question']
 		rescue
-			false
+			retry if (retries += 1) < 5
 		end
 	end
 end
