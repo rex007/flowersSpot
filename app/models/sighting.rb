@@ -51,4 +51,5 @@ class Sighting < ApplicationRecord
   def self.latest
     order(created_at: :desc).limit(10)
   end
+
 end
