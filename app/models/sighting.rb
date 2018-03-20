@@ -24,6 +24,7 @@
 #
 
 class Sighting < ApplicationRecord
+  after_commit :add_question, on: :create
   belongs_to :user, counter_cache: true
   belongs_to :flower, counter_cache: true
 
@@ -50,6 +51,12 @@ class Sighting < ApplicationRecord
 
   def self.latest
     order(created_at: :desc).limit(10)
+  end
+
+  def add_question
+    question_api = QriusityApiService.new
+    quest = question_api.call
+    self.update_column(:question, quest)
   end
 
 end
