@@ -15,6 +15,7 @@
 #  picture_content_type :string
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
+#  question             :text
 #
 # Indexes
 #
