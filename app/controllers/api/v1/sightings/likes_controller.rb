@@ -1,5 +1,6 @@
 class Api::V1::Sightings::LikesController < Api::V1::Sightings::BaseController
 	before_action :set_sighting, only: [:index, :create, :destroy]
+	skip_before_action :authenticate_api_user, only: :index
 
 	def index
 		@likes = @sighting.likes.order(created_at: :desc)

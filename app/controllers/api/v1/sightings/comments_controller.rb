@@ -1,5 +1,6 @@
 class Api::V1::Sightings::CommentsController < Api::V1::Sightings::BaseController
 	before_action :set_sighting, only: [:create, :index, :destroy]
+	skip_before_action :authenticate_api_user, only: :index
 
 	def index
 		@comments = @sighting.comments.order(created_at: :desc)
